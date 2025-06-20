@@ -12,6 +12,9 @@ fn main() {
     let s4 = takes_and_gives_back(s3);
 
     println!("{}, {}", s2, s4);
+
+    let mut vec = vec![10, 20, 30, 40, 50];
+    let e = vec.get(1).unwrap_or(&&vec[0]);
 }
 
 fn takes_ownership(some_string: String) {
