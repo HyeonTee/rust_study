@@ -1,7 +1,8 @@
 use crate::List::{Cons, Nil};
+use std::rc::Rc;
 
 pub enum List {
-    Cons(i32, Box<List>),
+    Cons(i32, Rc<List>),
     Nil,
 }
 
@@ -54,14 +55,7 @@ impl List {
     }
 
     pub fn push(self, val: i32) -> List {
-        List::Cons(val, Box::new(self))
-    }
-
-    pub fn pop(self) -> List {
-        match self {
-            List::Cons(_, next) => *next,
-            List::Nil => List::Nil,
-        }
+        List::Cons(val, Rc::new(self))
     }
 }
 
@@ -70,7 +64,7 @@ mod tests {
     use super::*;
 
     fn sample_list() -> List {
-        List::Cons(3, Box::new(List::Cons(2, Box::new(List::Cons(1, Box::new(List::Nil))))))
+        List::Cons(3, Rc::new(List::Cons(2, Rc::new(List::Cons(1, Rc::new(List::Nil))))))
     }
 
     #[test]
@@ -117,14 +111,6 @@ mod tests {
         let new_list = list.push(10);
         assert_eq!(new_list.head(), Some(&10));
         assert_eq!(new_list.length(), 4);
-    }
-
-    #[test]
-    fn test_pop() {
-        let list = sample_list();
-        let popped = list.pop();
-        assert_eq!(popped.head(), Some(&2));
-        assert_eq!(popped.length(), 2);
     }
 }
 
