@@ -7,7 +7,7 @@ fn main() {
     let tx1 = tx.clone();
     
     thread::spawn(move || {
-        let vals = vec![String::from("hi"), String::from("from"), String::from("the"), String::from("thread")];
+        let vals = vec![String::from("a"), String::from("b"), String::from("c"), String::from("d")];
         for val in vals {
             tx1.send(val).unwrap();
             thread::sleep(Duration::from_secs(1));
@@ -16,10 +16,11 @@ fn main() {
 
     thread::spawn(move || {
         let vals = vec![
-            String::from("more"),
-            String::from("messages"),
-            String::from("for"),
-            String::from("you"),
+            String::from("1"),
+            String::from("2"),
+            String::from("3"),
+            String::from("4"),
+            String::from("5"),
         ];
 
         for val in vals {
